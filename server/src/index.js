@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const connectDb = require('./src/utils/connection')
+const connectDb = require('./utils/connection')
 
 // Constants
 const PORT = process.env.PORT || 8080;
@@ -9,6 +9,10 @@ const HOST = process.env.HOST || '0.0.0.0';
 
 // App
 const app = express();
+
+// issues router
+app.use("/api/issues/", require('./routes/api/issues'));
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
