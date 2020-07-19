@@ -3,39 +3,146 @@ const router = require("express").Router();
 // Issues model import
 const Issue = require("../../models/Issue");
 
+// Validation function import
+const issueValidation = require("../../utils/validation");
+
 // GET all issues
-router.get("/", (req, res) => {
-    res.json({
-      msg: "GET all issues"
+router.get("/", async (req, res) => {
+    try {
+        const response = await Issue.find();
+        res.json({
+            succes: true,
+            data: response
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            succes: false,
+            message: error
+        });
+    }
+});
+
+// GET single issue
+router.get("/:id", async (req, res) => {
+    try {
+        const response = await Issue.findById(req.params.id);
+        if (!response) return res.status(404).json({
+            succes: false,
+            message: `No issue with _id: ${req.params.id}`
+        });
+
+        res.json({
+            succes: true,
+            data: response
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            succes: false,
+            message: error
+        });
+    }
+});
+
+// POST issue
+router.post("/", async (req, res) => {
+
+    const { error } = issueValidation(req.body);
+
+    if (error) return res.status(400).json({
+        succes: false,
+        message: error.details[0].message
     });
-  });
-  
-  // GET single issue
-  router.get("/:id", (req, res) => {
-    res.json({
-      msg: "GET single issue"
-    });
-  });
-  
-  // POST issue
-  router.post("/", (req, res) => {
-    res.json({
-      msg: "POST issue"
-    });
-  });
-  
-  // PUT (update) issue
-  router.get("/:id", (req, res) => {
-    res.json({
-      msg: "PUT (update) issue"
-    });
-  });
-  
-  // DELETE issue
-  router.get("/:id", (req, res) => {
-    res.json({
-      msg: "DELETE issue"
-    });
-  });
-  
-  module.exports = router;
+
+    try {
+        const response = await Issue.create({
+            title: req.body.title,
+            description: req.body.description
+        });
+        res.json({
+            succes: true,
+            data: response
+        })
+    } catch (error) {
+        res.status(400).json({ 
+            succes: false,
+            message: error
+        });
+    }
+});
+
+// PUT (update) book
+router.put("/:id", async (req, res) => {
+
+    const { error } = issueValidation(req.body);
+
+    if (error) return res.status(400).json({
+        succes: false,
+        message: error.details[0].message
+    })
+
+    try {
+        const doc = await Issue.findById(req.params.id);
+        if (!response) return res.status(404).json({
+            succes: false,
+            message: `No issue with _id: ${req.params.id}`
+        });
+
+        switch (doc.state) {
+            case "open":
+                break;
+            case "pending":
+                if (req.body.state && req.body.state == "open") {
+                    return res.status(400).json({
+                        succes: false,
+                        message: 'Pending issue could only be closed.'
+                    })
+                }
+                break;
+            case "closed":
+                if (req.body.state && req.body.state !== "closed") {
+                    return res.status(400).json({
+                        succes: false,
+                        message: 'State of once closed issue could not be changed.'
+                    })
+                }
+                break;
+        }
+
+        const response = await Issue.findOneAndUpdate(
+            { _id: req.params.id },
+            req.body,
+            { new: true }
+        );
+        res.json({
+            succes: true,
+            data: response
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            succes: false,
+            message: error
+        });
+    }
+});
+
+// DELETE book
+router.delete("/:id", async (req, res) => {
+    try {
+        const response = await Issue.findByIdAndDelete(req.params.id);
+        if (!response) return res.status(404).json({
+            succes: false,
+            message: `No issue with _id: ${req.params.id}`
+        });
+        res.json({
+            succes: true,
+            data: response
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            succes: false,
+            message: error
+        });
+    }
+});
+
+module.exports = router;

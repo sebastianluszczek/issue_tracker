@@ -12,7 +12,8 @@ const issueSchema = new mongoose.Schema({
   state: {
     type: String,
     required: true,
-    enum: ["open", "pending", "closed"]
+    enum: ["open", "pending", "closed"],
+    default: "open"
   },
   created_at: {
     type: Date,
