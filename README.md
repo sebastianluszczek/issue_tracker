@@ -7,9 +7,11 @@
 ## In project i use:
 
 ### Backend
+<p style="float: left">
 <img src="https://cdn.iconscout.com/icon/free/png-256/node-js-1174925.png" alt="Node.js" width="64" style="display: inline">
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS88qsrd0PXJzWBK2MYRgBWchcs-LMBYwBncfMuLDlAWjHbUXvGIw" alt="Express" width="64" style="display: inline">
 <img src="https://pbs.twimg.com/profile_images/946432748276740096/0TXzZU7W.jpg" alt="Mongoose" width="64" style="display: inline">
+</p><div style="clear:both;"></div>
 
 
 ### Frontend
