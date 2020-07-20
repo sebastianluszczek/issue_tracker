@@ -1,12 +1,15 @@
 'use strict';
 
 const express = require('express');
+const cors = require('cors')
 
 // App
 const app = express();
 
 // JSON parse middleware
-app.use(express.json())
+app.use(express.json());
+
+app.use(cors());
 
 // issues router
 app.use("/api/issues", require('./routes/api/issues'));
