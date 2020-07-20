@@ -3,9 +3,6 @@ const router = require("express").Router();
 // Issues model import
 const Issue = require("../../models/Issue");
 
-// Validation function import
-const issueValidation = require("../../utils/validation");
-
 // GET all issues
 router.get("/", async (req, res) => {
     try {
@@ -46,11 +43,12 @@ router.get("/:id", async (req, res) => {
 // POST issue
 router.post("/", async (req, res) => {
 
-    const { error } = issueValidation(req.body);
+    const newIssue = new Issue(req.body);
+    let error = newIssue.validateSync();
 
     if (error) return res.status(400).json({
         succes: false,
-        message: error.details[0].message
+        message: error.message
     });
 
     try {
@@ -73,16 +71,18 @@ router.post("/", async (req, res) => {
 // PUT (update) book
 router.put("/:id", async (req, res) => {
 
-    const { error } = issueValidation(req.body);
+    const newIssue = new Issue(req.body);
+    let error = await newIssue.validate();
 
     if (error) return res.status(400).json({
         succes: false,
-        message: error.details[0].message
-    })
+        message: error.message,
+        error: 'yes'
+    });
 
     try {
         const doc = await Issue.findById(req.params.id);
-        if (!response) return res.status(404).json({
+        if (!doc) return res.status(404).json({
             succes: false,
             message: `No issue with _id: ${req.params.id}`
         });
@@ -118,6 +118,7 @@ router.put("/:id", async (req, res) => {
             data: response
         });
     } catch (error) {
+        console.log('?')
         res.status(400).json({ 
             succes: false,
             message: error
