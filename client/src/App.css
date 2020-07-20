@@ -47,9 +47,6 @@ nav.navbar .nav-link {
     grid-template-columns: 1fr 1fr;
 }
 
-.issue-list .column h4 {
-}
-
 .issue-list .column {
     margin: 0 1rem;
 }
