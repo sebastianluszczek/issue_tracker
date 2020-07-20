@@ -12,6 +12,7 @@ services:
             - mongo
         volumes:
             - ./server:/usr/src/app
+            - '/app/node_modules'
     client:
         container_name: client
         build:
