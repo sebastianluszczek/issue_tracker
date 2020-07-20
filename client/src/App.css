@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #e4e3e3;
+}
+
+nav.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    background-color: #204051;
+    color: #e4e3e3;
+    display: grid;
+    grid-template-columns: 200px auto;
+    padding: 1rem;
+}
+
+nav.navbar a {
+    text-decoration: none;
+    color: #e4e3e3;
+}
+
+nav.navbar .navbar-logo {
+    font-size: 1.4rem;
+}
+
+nav.navbar .nav-link {
+    padding: 1rem;
+    text-transform: uppercase;
+} 
+
+.container {
+    width: 800px;
+    margin: 6rem auto 1rem;
+}
+
+.issue-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.issue-list .column h4 {
+}
+
+.issue-list .column {
+    margin: 0 1rem;
+}
+
+.issue-list .list {
+    list-style: none;
+    margin-right: 1rem;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+}
+
+.issue-list .list .list-item {
+    border: 1px solid #333;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #84a9ac;
+    margin-top: 0.5rem;
+}
+
+.issue-list .list .list-item.active {
+    background-color: #3b6978;
+}
+
+.issue-list .info {
+    margin-top: 1rem;
+}
+
+.issue-list .details {
+    border: 1px solid #666;
+    padding: 1rem;
+    height: 80vh;
+}
+
+.input-wrapper {
+    display: grid;
+    grid-template-columns: 200px auto;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.input-wrapper .state-check {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.input-wrapper input, .input-wrapper textarea {
+    padding: 0.5rem;
+    border: 1px solid #aaa;
+    background-color: #e4e3e3;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #204051;
+    color: #e4e3e3;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    border: #000;
+    border-radius: 1rem;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-small {
+    display: inline-block;
+    margin: 0 0.2rem;
+    border-radius: 5px;
+    background-color: #3b6978;
+    color: #e4e3e3;
+    border: none;
+    width: 4rem;
+    height: 1.4rem;
+    cursor: pointer;
+}
+
+.btn-small:disabled {
+    background-color: #84a9ac;
+    cursor: auto;
+}
+
+.message {
+    width: 100%;
+    border: 1px solid #204051;
+    background-color: #84a9ac;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    color: #204051;
+}
